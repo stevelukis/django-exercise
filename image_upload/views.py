@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from ipware import get_client_ip
 
 from . import forms, models
@@ -13,7 +14,7 @@ class UUIDMixin:
         return instance
 
 
-class UploadImageView(CreateView):
+class UploadImageView(LoginRequiredMixin, CreateView):
     form_class = forms.UploadImageForm
     template_name = "upload.html"
 
